@@ -1,0 +1,12 @@
+#!/bin/bash
+
+which nmap > /dev/null
+NMAP_EXISTS=$?
+if [ "${NMAP_EXISTS}" != 0 ]; then
+    echo "Error: could not find nmap"
+    exit 1
+fi
+
+SUBNET=$(hostname -I | awk '{print $1}' | grep -Eo '[0-9.]{6}').1/24
+
+nmap -p 22 ${SUBNET}

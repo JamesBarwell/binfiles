@@ -1,0 +1,54 @@
+#!/bin/bash
+
+FILEPATH=${1}
+SIZE=${2:-l}
+
+function help() {
+    echo "description: resizes an image using ImageMagick"
+    echo ""
+    echo "usage: resize_image </path/to/image> <size>"
+    echo -e "\tsize: s, m, l or xl"
+    echo ""
+}
+
+declare -A OUTPUT_SIZES=(
+    ["s"]="640x480"
+    ["m"]="800x600"
+    ["l"]="1024x768"
+    ["xl"]="1920x1080"
+)
+
+which convert > /dev/null
+CONVERT_EXISTS=$?
+if [ "${CONVERT_EXISTS}" != 0 ]; then
+    echo "Error: could not find convert (from ImageMagick package)"
+    help
+    exit 1
+fi
+
+if [ -z "${FILEPATH}" ]; then
+    help
+    exit 1
+fi
+
+if [ ! -f "${FILEPATH}" ]; then
+    echo "Error: could not find image at: ${FILEPATH}"
+    help
+    exit 1
+fi
+
+FILE_DIR=$(dirname ${FILEPATH})
+FILE_NAME=$(basename ${FILEPATH})
+FILE_NAME_NO_EXT="${FILE_NAME%.*}"
+FILE_EXT="${FILE_NAME##*.}"
+OUTPUT_FILEPATH=${FILE_DIR}/${FILE_NAME_NO_EXT}_resized.${FILE_EXT}
+
+OUTPUT_SIZE="${OUTPUT_SIZES[${SIZE}]}"
+
+if [ -z "${OUTPUT_SIZE}" ]; then
+    echo "Error: unknown output size. Please select: s, m, l or xl"
+    help
+    exit 1
+fi
+
+convert ${FILEPATH} -resize ${OUTPUT_SIZE} ${OUTPUT_FILEPATH}
