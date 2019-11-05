@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Geneate user credentials for htpasswd file
+
+USERNAME=$1
+
+if [ -z "${USERNAME}" ]; then
+    echo "Error: please specify a username"
+    exit 1
+fi
+
+>&2 echo "Please enter new password:"
+read -s PASSWORD
+if [ -z "${PASSWORD}" ]; then
+    echo "Error: please specify a password"
+    exit 1
+fi
+
+echo "$USERNAME:$(openssl passwd -crypt $PASSWORD)"
