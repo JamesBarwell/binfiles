@@ -1,0 +1,31 @@
+#!/bin/bash
+
+sudo apt-get update
+
+echo "Install dev tools? [y/N]"
+read install_dev
+if [ "$install_dev" != "${install_dev#[Yy]}" ]; then
+    sudo apt-get install \
+        build-essential \
+        curl \
+        git \
+        htop \
+        iftop \
+        vim
+fi
+
+
+echo "Install apps? [y/N]"
+read install_apps
+if [ "$install_apps" != "${install_apps#[Yy]}" ]; then
+    sudo apt-get install \
+        cmus \
+        chromium-browser \
+        filezilla \
+        firefox \
+        imagemagick \
+        irssi \
+        jq \
+        lame \
+        tmux
+fi
