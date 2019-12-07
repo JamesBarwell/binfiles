@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Copy a list of specified files from one directory to another
+
+SOURCE_DIR=$1
+TARGET_DIR=$2
+LIST=$3
+
+if [ ! -d "${SOURCE_DIR}" ]; then
+    echo "Error: please specify source directory"
+    exit 1
+fi
+
+if [ ! -d "${TARGET_DIR}" ]; then
+    echo "Error: please specify target directory"
+    exit 1
+fi
+
+if [ ! -f "${LIST}" ]; then
+    echo "Error: please specify list of files to copy"
+fi
+
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+
+cat ${LIST} | tr '\n' '\0' | xargs -0 -I % cp -v ${SOURCE_DIR}% ${TARGET_DIR}
+
+IFS=$SAVEIFS
