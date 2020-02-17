@@ -5,12 +5,13 @@ sudo apt-get update
 echo "Install dev tools? [y/N]"
 read install_dev
 if [ "$install_dev" != "${install_dev#[Yy]}" ]; then
-    sudo apt-get install \
+    sudo apt-get install -y \
         build-essential \
         curl \
         git \
         htop \
         iftop \
+        nmap \
         vim
 fi
 
@@ -18,7 +19,7 @@ fi
 echo "Install apps? [y/N]"
 read install_apps
 if [ "$install_apps" != "${install_apps#[Yy]}" ]; then
-    sudo apt-get install \
+    sudo apt-get install -y \
         cmus \
         chromium-browser \
         filezilla \
@@ -27,5 +28,6 @@ if [ "$install_apps" != "${install_apps#[Yy]}" ]; then
         irssi \
         jq \
         lame \
+        pass \
         tmux
 fi
