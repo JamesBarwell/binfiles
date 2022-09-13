@@ -1,0 +1,56 @@
+#!/bin/bash
+
+FILEPATH=${1}
+SIZE=${2:-l}
+
+function help() {
+    echo "description: resizes an mp4 video using ffmpe"
+    echo ""
+    echo "usage: resize_video </path/to/image> <size>"
+    echo -e "\tsize: s, m, l or xl"
+    echo ""
+}
+
+declare -A OUTPUT_SIZES=(
+    # 1/4
+    ["s"]="scale=trunc(iw/8)*2:trunc(ih/8)*2"
+    # 1/3
+    ["m"]="scale=trunc(iw/6)*2:trunc(ih/6)*2"
+    # 1/2
+    ["l"]="scale=trunc(iw/4)*2:trunc(ih/4)*2"
+)
+
+which ffmpeg > /dev/null
+FFMPEG_EXISTS=$?
+if [ "${FFMPEG_EXISTS}" != 0 ]; then
+    echo "Error: could not find ffmpeg"
+    help
+    exit 1
+fi
+
+if [ -z "${FILEPATH}" ]; then
+    help
+    exit 1
+fi
+
+if [ ! -f "${FILEPATH}" ]; then
+    echo "Error: could not find video at: ${FILEPATH}"
+    help
+    exit 1
+fi
+
+FILE_DIR=$(dirname "${FILEPATH}")
+FILE_NAME=$(basename "${FILEPATH}")
+FILE_NAME_NO_EXT="${FILE_NAME%.*}"
+FILE_EXT="${FILE_NAME##*.}"
+OUTPUT_FILEPATH=${FILE_DIR}/${FILE_NAME_NO_EXT}_resized.${FILE_EXT}
+
+OUTPUT_SIZE="${OUTPUT_SIZES[${SIZE}]}"
+
+if [ -z "${OUTPUT_SIZE}" ]; then
+    echo "Error: unknown output size. Please select: s, m, l or xl"
+    help
+    exit 1
+fi
+
+ffmpeg -i "${FILEPATH}" -vf "${OUTPUT_SIZE}" "${OUTPUT_FILEPATH}"
