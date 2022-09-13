@@ -9,8 +9,8 @@ if [ ! -d "${SOURCE_DIR}" ]; then
 fi
 
 if [ ! -d "${DEST_DIR}" ]; then
-    echo "Error: source dir not specified or not a directory"
+    echo "Error: dest dir not specified or not a directory"
     exit 1
 fi
 
-rsync -raP --delete ${SOURCE_DIR} ${DEST_DIR}
+rsync -raP --delete "${SOURCE_DIR}" "${DEST_DIR}"

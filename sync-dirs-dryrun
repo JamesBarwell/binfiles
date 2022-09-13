@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# put a trailing slash on the source dir to indicate *contents of* that directory
+
 SOURCE_DIR=$1
 DEST_DIR=$2
 
@@ -9,8 +11,8 @@ if [ ! -d "${SOURCE_DIR}" ]; then
 fi
 
 if [ ! -d "${DEST_DIR}" ]; then
-    echo "Error: source dir not specified or not a directory"
+    echo "Error: dest dir not specified or not a directory"
     exit 1
 fi
 
-rsync -n -raP --delete ${SOURCE_DIR} ${DEST_DIR}
+rsync -n -v -raP --delete "${SOURCE_DIR}" "${DEST_DIR}"
