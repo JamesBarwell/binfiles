@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# put a trailing slash on the source dir to indicate *contents of* that directory
+
 SOURCE_DIR=$1
 DEST_DIR=$2
 

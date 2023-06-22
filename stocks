@@ -1,0 +1,5 @@
+#curl terminal-stocks.dev/historical/^GSPC
+#curl terminal-stocks.dev/^GSPC
+
+curl terminal-stocks.dev/historical/0P0000UGLG.L
+curl terminal-stocks.dev/0P0000UGLG.L
