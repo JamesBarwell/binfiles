@@ -1,0 +1,5 @@
+DELAY=$1
+MESSAGE=$2
+
+sleep $DELAY && /usr/bin/notify-send -a custom_timer  "Timer" "$MESSAGE" &
+echo "Scheduled timer for $DELAY"

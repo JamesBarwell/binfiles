@@ -1,0 +1,2 @@
+DIR=$( dirname -- "${BASH_SOURCE[0]}"; )
+java -jar ${DIR}/josm-tested.jar

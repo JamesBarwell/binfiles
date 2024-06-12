@@ -1,5 +1,0 @@
-QUALITY=${1:-720p}
-
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-${SCRIPT_DIR}/streamlink-5.1.2-2-cp311-cp311-manylinux2014_x86_64.AppImage --twitch-api-header Client-ID=ue6666qo983tsx6so1t0vnawi233wa --twitch-disable-ads --player vlc https://twitch.tv/gamesdonequick $QUALITY

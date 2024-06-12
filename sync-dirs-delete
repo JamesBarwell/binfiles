@@ -15,4 +15,4 @@ if [ ! -d "${DEST_DIR}" ]; then
     exit 1
 fi
 
-rsync -raP "${SOURCE_DIR}" "${DEST_DIR}"
+rsync -raP --delete "${SOURCE_DIR}" "${DEST_DIR}"

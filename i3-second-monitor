@@ -1,1 +1,11 @@
-xrandr --output HDMI-0 --auto --right-of eDP-1-1
+#!/bin/sh
+
+xrandr --listmonitors | grep HDMI > /dev/null
+if [ $? = 1 ]; then
+    echo "Turning on HDMI-0"
+    xrandr --output HDMI-0 --auto --right-of eDP-1-1
+    echo "Run pavucontrol to adjust laptop speaker / headphone volume"
+else
+    echo "Turning off HDMI-0"
+    xrandr --output HDMI-0 --off
+fi

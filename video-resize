@@ -7,7 +7,7 @@ function help() {
     echo "description: resizes an mp4 video using ffmpe"
     echo ""
     echo "usage: resize_video </path/to/image> <size>"
-    echo -e "\tsize: s, m, l or xl"
+    echo -e "\tsize: s, m, or l"
     echo ""
 }
 
@@ -48,7 +48,7 @@ OUTPUT_FILEPATH=${FILE_DIR}/${FILE_NAME_NO_EXT}_resized.${FILE_EXT}
 OUTPUT_SIZE="${OUTPUT_SIZES[${SIZE}]}"
 
 if [ -z "${OUTPUT_SIZE}" ]; then
-    echo "Error: unknown output size. Please select: s, m, l or xl"
+    echo "Error: unknown output size. Please select: s, m or l"
     help
     exit 1
 fi
