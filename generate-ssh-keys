@@ -1,0 +1,25 @@
+#!/bin/bash
+
+algorithm=ed25519
+algorithm_name=eddsa
+rounds=100
+
+key_dir=~/.ssh
+hostname=$(hostname)
+date=$(date -I)
+
+echo "Please enter owner e-mail"
+read -r email
+
+echo "Please enter name of remote"
+read -r remote
+
+echo "Please enter name of purpose"
+read -r purpose
+
+comment="${email} ${hostname} ${date}"
+key_filepath=${key_dir}/id_${algorithm_name}_${remote}_${purpose}
+
+ssh-keygen -t ${algorithm} -a ${rounds} -C "${comment}" -f ${key_filepath}
+
+echo "Keypair created at: ${key_filepath}"

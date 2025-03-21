@@ -1,0 +1,28 @@
+#!/bin/sh
+
+device=/dev/sr0
+mount=/mnt/cdrom
+
+iso_filepath=${1}
+
+if [ -z ${iso_filepath} ]; then
+    echo "Please specify a filepath to write the ISO"
+    exit 1
+fi
+
+if [ ! -e ${device} ]; then
+    echo "Could not find device at ${device}"
+    exit 1
+fi
+
+if [ ! -d ${mount} ]; then
+    sudo mkdir -p /mnt/cdrom
+fi
+
+sudo mount ${device} ${mount}
+
+mkisofs -o ${iso_filepath} ${mount}
+
+sudo umount ${mount}
+
+echo "Successfully dumped ISO to ${iso_filepath}"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+REMOTE_HOST=$1
+REMOTE_DIR=$2
+LOCAL_DIR=/mnt/remote
+
+if [ -z "${REMOTE_HOST}" ]; then
+    echo "error: specify remote host"
+    exit 1
+fi
+
+if [ -z "${REMOTE_DIR}" ]; then
+    echo "error: specify remote directory to mount"
+    exit 1
+fi
+
+sshfs ${REMOTE_HOST}:${REMOTE_DIR} ${LOCAL_DIR}
+
+echo "Mounted ${REMOTE_HOST}:${REMOTE_DIR} at ${LOCAL_MOUNT_DIR}"

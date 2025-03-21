@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/notify-send -t 5000 "Testing notify... this message will self-desutruct in 5 seconds..."

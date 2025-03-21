@@ -1,0 +1,5 @@
+# remove unused containers (danling and unreferenced), build containers,
+# pods, networks and unused images.
+# note: volumes not removed unless --volumes flag is set
+
+podman system prune --all --build
