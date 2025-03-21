@@ -1,0 +1,45 @@
+#!/bin/bash
+
+tables_dir=~/Games/VisualPinball/tables
+vpinball_exec=~/Games/VisualPinball/VPinballX_GL
+
+echo "Visual Pinball Launcher"
+echo ""
+echo "Please select a table:"
+
+n=0
+
+SAVEIFS=${IFS}
+IFS=$(echo -en "\n\b")
+
+for table_filepath in $(find ${tables_dir} -type f -name '*.vpx' | sort); do
+    n=$((n+1))
+    table_filename=$(basename $table_filepath)
+    echo "[${n}] ${table_filename%.*}"
+    eval "table_filepaths${n}=\$table_filepath"
+done
+
+IFS=$SAVEIFS
+
+if [ "$n" -eq 0 ]; then
+    echo "No tables found in ${tables_dir}"
+    exit 0
+fi
+
+read -r num
+
+re='^[0-9]+$'
+if ! [[ $num =~ $re ]]; then
+    echo "Invalid selection - not a number"
+    exit 1
+fi
+
+if [ "$num" -le 0 ] || [ "$num" -gt "$n" ]; then
+    echo "Invalid selection - no table matches that number"
+    exit 1
+fi
+
+eval "table_filepath=\$table_filepaths${num}"
+echo "Launching table: $table_filepath"
+
+$vpinball_exec -play "${table_filepath}"
