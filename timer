@@ -1,3 +1,5 @@
+#!/bin/sh
+
 DELAY=$1
 MESSAGE=$2
 

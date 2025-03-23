@@ -1,1 +1,3 @@
+#!/bin/sh
+
 gpg --symmetric --cipher-algo aes256 $1

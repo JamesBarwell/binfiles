@@ -1,1 +1,3 @@
+#!/bin/sh
+
 firefox -no-remote -profile $(mktemp -d)

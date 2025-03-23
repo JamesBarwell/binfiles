@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #curl terminal-stocks.dev/historical/^GSPC
 #curl terminal-stocks.dev/^GSPC
 
