@@ -1,0 +1,20 @@
+country=${1:-""}
+
+conf_source_dir=~/.local/share/protonvpn-wg-conf
+
+conf_file=$(find ${conf_source_dir} -type f | grep "${country}" | shuf -n1)
+
+if [ -z ${conf_file} ]; then
+    echo "Error: could not find a conf file in ${conf_source_dir}"
+    exit 1
+fi
+
+filename=$(basename ${conf_file})
+
+echo "Connecting to protonvpn using config: ${filename}"
+
+sudo wg-quick up ${conf_file}
+
+watch -n 60 sudo wg
+
+sudo wg-quick down ${conf_file}
