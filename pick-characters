@@ -1,0 +1,9 @@
+#!/bin/sh
+
+chars=$@
+stdin=$(cat)
+
+for char in ${chars}; do
+    char_int=$((char-1))
+    echo ${stdin:${char_int}:1}
+done
