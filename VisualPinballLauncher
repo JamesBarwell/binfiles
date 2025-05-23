@@ -1,7 +1,8 @@
 #!/bin/bash
 
 tables_dir=~/Games/VisualPinball/tables
-vpinball_exec=~/Games/VisualPinball/VPinballX_GL
+version=10.8.1
+vpinball_exec=~/Games/VisualPinball/VisualPinball-${version}/VPinballX_GL
 
 echo "Visual Pinball Launcher"
 echo ""
@@ -26,7 +27,10 @@ if [ "$n" -eq 0 ]; then
     exit 0
 fi
 
-read -r num
+num=${1}
+if [ -z ${num} ]; then
+    read -r num
+fi
 
 re='^[0-9]+$'
 if ! [[ $num =~ $re ]]; then
