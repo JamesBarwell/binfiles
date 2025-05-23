@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tables_dir=~/Games/VisualPinball/tables
-version=10.8.1
+version=10.8.0
 vpinball_exec=~/Games/VisualPinball/VisualPinball-${version}/VPinballX_GL
 
 echo "Visual Pinball Launcher"
