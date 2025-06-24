@@ -1,5 +1,5 @@
 DELAY=${1:-60}
-COOLDOWN=${2:-15}
+INTERVAL=${2:-15}
 
 function message() {
   echo "$1"
@@ -12,25 +12,24 @@ function activity() {
   ((timer-=3))
 
   sleep $timer
-  message "3"
+  message "3" &
   sleep 1
-  message "2"
+  message "2" &
   sleep 1
-  message "1"
+  message "1" &
   sleep 1
 }
 
 n=1
 
 while true; do
-    if [ "${COOLDOWN}" -gt "0" ]; then
-        message "Cooldown"
-        activity $COOLDOWN
+    if [ "${INTERVAL}" -gt "0" ]; then
+        message "Interval" &
+        activity $INTERVAL
     fi
 
-    message "Start $n"
+    message "Start $n" &
     activity $DELAY
-    message "End $n"
 
     ((n+=1))
 done
