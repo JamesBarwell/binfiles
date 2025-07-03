@@ -16,7 +16,9 @@ IFS=$(echo -en "\n\b")
 for table_filepath in $(find ${tables_dir} -type f -name '*.vpx' | sort); do
     n=$((n+1))
     table_filename=$(basename $table_filepath)
-    echo "[${n}] ${table_filename%.*}"
+    table_filename_no_path=${table_filename%.*}
+    table_displayname=${table_filename_no_path//_/ }
+    echo "[${n}] ${table_displayname}"
     eval "table_filepaths${n}=\$table_filepath"
 done
 
