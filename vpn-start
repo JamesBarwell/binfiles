@@ -4,6 +4,9 @@ conf_source_dir=~/.local/share/protonvpn-wg-conf
 
 conf_file=$(find ${conf_source_dir} -type f | grep "${country}" | shuf -n1)
 
+# temporary fix following breakage
+sudo resolvconf -u
+
 if [ -z ${conf_file} ]; then
     echo "Error: could not find a conf file in ${conf_source_dir}"
     exit 1
