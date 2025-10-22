@@ -29,23 +29,33 @@ if [ "$n" -eq 0 ]; then
     exit 0
 fi
 
-num=${1}
-if [ -z ${num} ]; then
-    read -r num
+input=${1}
+if [ -z ${input} ]; then
+    read -r input
 fi
 
-re='^[0-9]+$'
-if ! [[ $num =~ $re ]]; then
-    echo "Invalid selection - not a number"
+if [[ "$input" =~ ^-?[0-9]+$ ]]; then
+  if [ "$input" -le 0 ] || [ "$input" -gt "$n" ]; then
+      echo "Invalid selection - no table matches that number"
+      exit 1
+  fi
+
+  eval "table_filepath=\$table_filepaths${input}"
+
+elif [[ "$input" =~ ^[a-zA-Z]+$ ]]; then
+  table_filename=$(ls ${tables_dir} | grep -E '.vpx$' | grep -i ${input} | head -n1)
+
+  if [ -z "${table_filename}" ]; then
+    echo "Invalid selection - no table matches that name"
     exit 1
+  fi
+
+  table_filepath=${tables_dir}/$table_filename
+else
+  echo "Error: invalid input; please enter an integer table number or name search string"
+  exit 1
 fi
 
-if [ "$num" -le 0 ] || [ "$num" -gt "$n" ]; then
-    echo "Invalid selection - no table matches that number"
-    exit 1
-fi
-
-eval "table_filepath=\$table_filepaths${num}"
 echo "Launching table: $table_filepath"
 
 $vpinball_exec -play "${table_filepath}"
