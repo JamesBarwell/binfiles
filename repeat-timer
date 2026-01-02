@@ -1,4 +1,4 @@
-DELAY=${1:-60}
+DELAY=${1:-45}
 INTERVAL=${2:-15}
 
 function message() {
