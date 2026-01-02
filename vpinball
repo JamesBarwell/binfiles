@@ -58,4 +58,16 @@ fi
 
 echo "Launching table: $table_filepath"
 
+
+monitor=HDMI-A-1
+hyprctl monitors | grep $monitor > /dev/null
+nowState=$?
+if [ $nowState = 1 ]; then
+    echo "Setting up external monitor"
+    hyprctl keyword monitorv2[$monitor]:disabled 0
+    hyprctl keyword monitorv2[$monitor]:transform 0
+    echo "Wait 5s for monitor to come up..."
+    sleep 5
+fi
+
 $vpinball_exec -play "${table_filepath}"
