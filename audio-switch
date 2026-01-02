@@ -1,0 +1,4 @@
+#!/bin/sh
+alternate_sink=$(pactl list sinks short | grep -v $(pactl get-default-sink) | cut -f1)
+pactl set-default-sink $alternate_sink
+echo "Switched audio device to $alternate_sink"
